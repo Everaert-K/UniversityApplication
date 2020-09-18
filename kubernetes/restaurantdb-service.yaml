@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: restaurantdb
+        labels:
+                app: restaurantdb
+spec:
+        type: ClusterIP
+        selector:
+                app: restaurantdb
+        ports:
+        - name: restaurantdb
+          protocol: TCP
+          port: 3306
+          targetPort: 3306

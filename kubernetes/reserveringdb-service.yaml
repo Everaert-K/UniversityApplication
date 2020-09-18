@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: reserveringdb
+        labels:
+                app: reserveringdb
+spec:
+        type: ClusterIP
+        selector:
+                app: reserveringdb
+        ports:
+        - name: reserveringdb
+          protocol: TCP
+          port: 27017
+          targetPort: 27017

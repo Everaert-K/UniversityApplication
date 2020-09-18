@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: onderzoekservice
+spec:
+        selector:
+                matchLabels:
+                        app: onderzoekservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: onderzoekservice
+                spec:
+                        hostname: onderzoekservice
+                        containers:
+                        - name: onderzoekservice
+                          image: vmnaesse/onderzoekservice
+                          ports:
+                          - containerPort: 2227

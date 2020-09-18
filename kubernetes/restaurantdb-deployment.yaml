@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: restaurantdb
+spec:
+        selector:
+                matchLabels:
+                        app: restaurantdb
+        template:
+                metadata:
+                        labels:
+                                app: restaurantdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - image: mysql:5.7
+                          name: mysql
+                          env:
+                          - name: MYSQL_ROOT_PASSWORD
+                            value: "dbpassword"
+                          - name: MYSQL_DATABASE
+                            value: "restaurant"
+                          ports:
+                          - containerPort: 3306

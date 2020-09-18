@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: restaurantservice
+spec:
+        selector:
+                matchLabels:
+                        app: restaurantservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: restaurantservice
+                spec:
+                        hostname: restaurantservice
+                        containers:
+                        - name: restaurantservice
+                          image: vmnaesse/restaurantservice
+                          ports:
+                          - containerPort: 2226

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: reserveringservice
+spec:
+        selector:
+                matchLabels:
+                        app: reserveringservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: reserveringservice
+                spec:
+                        hostname: reserveringservice
+                        containers:
+                        - name: reserveringservice
+                          image: vmnaesse/reserveringservice
+                          ports:
+                          - containerPort: 2225

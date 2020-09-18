@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: studentdb
+spec:
+        selector:
+                matchLabels:
+                        app: studentdb
+        template:
+                metadata:
+                        labels:
+                                app: studentdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - image: mysql:5.7
+                          name: mysql
+                          env:
+                          - name: MYSQL_ROOT_PASSWORD
+                            value: "dbpassword"
+                          - name: MYSQL_DATABASE
+                            value: "students"
+                          ports:
+                          - containerPort: 3306

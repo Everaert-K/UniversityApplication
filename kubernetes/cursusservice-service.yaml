@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: cursusservice
+        labels:
+                app: cursusservice
+spec:
+        type: ClusterIP
+        selector:
+                app: cursusservice
+        ports:
+        - name: cursusservice
+          protocol: TCP
+          port: 2220
+          targetPort: 2220

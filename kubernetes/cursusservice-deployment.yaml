@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: cursusservice
+spec:
+        selector:
+                matchLabels:
+                        app: cursusservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: cursusservice
+                spec:
+                        hostname: cursusservice
+                        containers:
+                        - name: cursusservice
+                          image: vmnaesse/cursusservice
+                          ports:
+                          - containerPort: 2220

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: roosterservice
+        labels:
+                app: roosterservice
+spec:
+        type: ClusterIP
+        selector:
+                app: roosterservice
+        ports:
+        - name: roosterservice
+          protocol: TCP
+          port: 2224
+          targetPort: 2224

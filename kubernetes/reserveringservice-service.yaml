@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: reserveringservice
+        labels:
+                app: reserveringservice
+spec:
+        type: ClusterIP
+        selector:
+                app: reserveringservice
+        ports:
+        - name: reserveringservice
+          protocol: TCP
+          port: 2225
+          targetPort: 2225

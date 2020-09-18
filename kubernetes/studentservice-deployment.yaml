@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: studentservice
+spec:
+        selector:
+                matchLabels:
+                        app: studentservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: studentservice
+                spec:
+                        hostname: studentservice
+                        containers:
+                        - name: studentservice
+                          image: vmnaesse/studentservice
+                          ports:
+                          - containerPort: 2222

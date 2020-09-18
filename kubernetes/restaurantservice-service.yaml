@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: restaurantservice
+        labels:
+                app: restaurantservice
+spec:
+        type: ClusterIP
+        selector:
+                app: restaurantservice
+        ports:
+        - name: restaurantservice
+          protocol: TCP
+          port: 2226
+          targetPort: 2226

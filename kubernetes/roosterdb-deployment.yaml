@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: roosterdb
+spec:
+        selector:
+                matchLabels:
+                        app: roosterdb
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: roosterdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - name: roosterdb
+                          image: mongo
+

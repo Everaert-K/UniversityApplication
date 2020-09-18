@@ -1,0 +1,195 @@
+version: "3"
+services:
+#------------Support services-------------
+ zookeeper:
+  image: confluentinc/cp-zookeeper
+  environment:
+   - ZOOKEEPER_CLIENT_PORT=2181
+ kafkabroker:
+  image: confluentinc/cp-kafka
+  depends_on:
+   - zookeeper
+  environment:
+   - KAFKA_BROKER_ID=1
+   - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+   - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafkabroker:9092
+   - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+# ------------Databases-------------
+ financialdb:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   - MYSQL_ROOT_PASSWORD=dbpassword
+   - MYSQL_DATABASE=financial
+ studentdb:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   - MYSQL_ROOT_PASSWORD=dbpassword
+   - MYSQL_DATABASE=students
+ professordb:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   - MYSQL_ROOT_PASSWORD=dbpassword
+   - MYSQL_DATABASE=professors
+ onderzoekdb:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   - MYSQL_ROOT_PASSWORD=dbpassword
+   - MYSQL_DATABASE=onderzoek
+ restaurantdb:
+  image: mysql:5.7
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   - MYSQL_ROOT_PASSWORD=dbpassword
+   - MYSQL_DATABASE=restaurant
+ cursusdb:
+  image: mongo
+ reserveringdb:
+  image: mongo
+ roosterdb:
+  image: mongo
+# -------------Main services---------------
+ financialservice:
+#  image: vmnaesse/financialservice
+  image: financialservice
+  build: ./systeemontwerp-financial-service
+  volumes: 
+      - ./systeemontwerp-financial-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - financialdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - financialdb
+ studentservice:
+#  image: vmnaesse/studentservice
+  image: studentservice
+  build: ./systeemontwerp-student-service
+  volumes: 
+      - ./systeemontwerp-student-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - studentdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - studentdb
+ professorservice:
+#  image: vmnaesse/professorservice
+  image: professorservice
+  build: ./systeemontwerp-professor-service
+  volumes: 
+      - ./systeemontwerp-professor-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - professordb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - professordb
+ cursusservice:
+#  image: vmnaesse/cursusservice
+  image: cursusservice
+  build: ./systeemontwerp-cursus-service
+  volumes: 
+      - ./systeemontwerp-cursus-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - cursusdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - cursusdb
+ reserveringservice:
+#  image: vmnaesse/reserveringservice
+  image: reserveringservice
+  build: ./systeemontwerp-reservering-service
+  volumes: 
+      - ./systeemontwerp-reservering-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - reserveringdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - reserveringdb
+ roosterservice:
+#  image: vmnaesse/roosterservice
+  image: roosterservice
+  build: ./systeemontwerp-rooster-service
+  volumes: 
+      - ./systeemontwerp-rooster-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - roosterdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - roosterdb
+ restaurantservice:
+# image: vmnaesse/restaurantservice
+  image: restaurantservice
+  build: ./systeemontwerp-restaurant-service
+  volumes: 
+      - ./systeemontwerp-restaurant-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - restaurantdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - restaurantdb
+ onderzoekservice:
+  image: onderzoekservice
+  build: ./systeemontwerp-onderzoek-service
+  volumes: 
+      - ./systeemontwerp-onderzoek-service/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - onderzoekdb
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - onderzoekdb
+ apigateway:
+#  image: vmnaesse/apigateway
+  image: apigateway
+  build: ./systeemontwerp-api-gateway
+  volumes: 
+      - ./systeemontwerp-api-gateway/target:/app
+  links:
+   - kafkabroker
+   - zookeeper
+   - cursusservice
+   - financialservice
+   - studentservice
+   - professorservice
+   - restaurantservice
+   - onderzoekservice
+   - roosterservice
+   - reserveringservice
+  depends_on:
+   - kafkabroker
+   - zookeeper
+   - cursusservice
+   - financialservice
+   - studentservice
+   - professorservice
+   - restaurantservice
+   - onderzoekservice
+   - roosterservice
+   - reserveringservice
+  ports:
+   - 8080:8080

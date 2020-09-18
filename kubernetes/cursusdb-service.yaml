@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: cursusdb
+        labels:
+                app: cursusdb
+spec:
+        type: ClusterIP
+        selector:
+                app: cursusdb
+        ports:
+        - name: cursusdb
+          protocol: TCP
+          port: 27017
+          targetPort: 27017

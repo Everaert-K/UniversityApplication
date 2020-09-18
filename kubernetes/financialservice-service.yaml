@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: financialservice
+        labels:
+                app: financialservice
+spec:
+        type: ClusterIP
+        selector:
+                app: financialservice
+        ports:
+        - name: financialservice
+          protocol: TCP
+          port: 2221
+          targetPort: 2221

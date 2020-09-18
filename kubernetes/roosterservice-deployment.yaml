@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: roosterservice
+spec:
+        selector:
+                matchLabels:
+                        app: roosterservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: roosterservice
+                spec:
+                        hostname: roosterservice
+                        containers:
+                        - name: roosterservice
+                          image: vmnaesse/roosterservice
+                          ports:
+                          - containerPort: 2224

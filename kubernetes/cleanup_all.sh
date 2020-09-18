@@ -1,0 +1,2 @@
+sudo kubectl delete deployment apigateway restaurantdb restaurantservice onderzoekservice ondezoekdb roosterservice roosterdb reserveringservice reserveringdb professorservice professordb studentservice studentdb cursusdb cursusservice financialservice financialdb kafka zookeeper
+sudo kubectl delete service apigateway restaurantdb restaurantservice onderzoekservice onderzoekdb roosterservice roosterdb reserveringservice reserveringdb professorservice professordb studentservice studentdb cursusdb cursusservice financialdb financialservice kafkabroker zookeeper

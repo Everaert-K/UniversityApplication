@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+        name: roosterdb
+        labels:
+                app: roosterdb
+spec:
+        type: ClusterIP
+        selector:
+                app: roosterdb
+        ports:
+        - name: roosterdb
+          protocol: TCP
+          port: 27017
+          targetPort: 27017
+

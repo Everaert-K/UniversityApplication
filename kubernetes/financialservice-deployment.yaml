@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: financialservice
+spec:
+        selector:
+                matchLabels:
+                        app: financialservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: financialservice
+                spec:
+                        hostname: financialservice
+                        containers:
+                        - name: financialservice
+                          image: vmnaesse/financialservice
+                          ports:
+                          - containerPort: 2221

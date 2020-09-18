@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: financialdb
+spec:
+        selector:
+                matchLabels:
+                        app: financialdb
+        template:
+                metadata:
+                        labels:
+                                app: financialdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - image: mysql:5.7
+                          name: mysql
+                          env:
+                          - name: MYSQL_ROOT_PASSWORD
+                            value: "dbpassword"
+                          - name: MYSQL_DATABASE
+                            value: "financial"
+                          ports:
+                          - containerPort: 3306

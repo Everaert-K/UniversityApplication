@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: onderzoekdb
+spec:
+        selector:
+                matchLabels:
+                        app: onderzoekdb
+        template:
+                metadata:
+                        labels:
+                                app: onderzoekdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - image: mysql:5.7
+                          name: mysql
+                          env:
+                          - name: MYSQL_ROOT_PASSWORD
+                            value: "dbpassword"
+                          - name: MYSQL_DATABASE
+                            value: "onderzoek"
+                          ports:
+                          - containerPort: 3306

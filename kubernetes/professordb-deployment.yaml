@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: professordb
+spec:
+        selector:
+                matchLabels:
+                        app: professordb
+        template:
+                metadata:
+                        labels:
+                                app: professordb
+                                chaos: immune
+                spec:
+                        containers:
+                        - image: mysql:5.7
+                          name: mysql
+                          env:
+                          - name: MYSQL_ROOT_PASSWORD
+                            value: "dbpassword"
+                          - name: MYSQL_DATABASE
+                            value: "professors"
+                          ports:
+                          - containerPort: 3306

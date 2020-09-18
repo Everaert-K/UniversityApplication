@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: professorservice
+spec:
+        selector:
+                matchLabels:
+                        app: professorservice
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: professorservice
+                spec:
+                        hostname: professorservice
+                        containers:
+                        - name: professorservice
+                          image: vmnaesse/professorservice
+                          ports:
+                          - containerPort: 2223

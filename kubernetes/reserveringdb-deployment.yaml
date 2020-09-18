@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: reserveringdb
+spec:
+        selector:
+                matchLabels:
+                        app: reserveringdb
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: reserveringdb
+                                chaos: immune
+                spec:
+                        containers:
+                        - name: reserveringdb
+                          image: mongo

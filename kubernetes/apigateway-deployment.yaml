@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: apigateway
+spec:
+        selector:
+                matchLabels:
+                        app: apigateway
+        replicas: 1
+        template:
+                metadata:
+                        labels:
+                                app: apigateway
+                                chaos: immune
+                spec:
+                        containers:
+                        - name: apigateway
+                          image: vmnaesse/apigateway
+                          ports:
+                          - containerPort: 8080
