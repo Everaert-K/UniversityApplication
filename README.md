@@ -1,4 +1,3 @@
-# Groep 8
 ## Installatie & runnen
 ### Met docker-compose
 Bij de dockerfiles werd een **docker-compose.yaml** file voorzien.
